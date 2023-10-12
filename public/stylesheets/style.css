@@ -44,10 +44,10 @@ ul li input {
   display: none;
 }
 
-input[type="checkbox"]:checked + label{
+ul li input[type="checkbox"]:checked + label{
   background: #FFFFFF;
 }
-input[type="checkbox"]:checked + label::after{
+ul li input[type="checkbox"]:checked + label::after{
   background: #FFFFFF;
   content: '✔';
   position: absolute;
@@ -69,20 +69,46 @@ ul li label {
   position: relative;
 }
 
-.onoff-switch-container{
+.switch-container{
   display: flex;
   justify-content: right;
   margin-right: 20px;
 }
 
 #switch{
-  display: none;
+  /* display: none; */
+  appearance: none;
+  position: relative;
+  border: max(2px, 0.1em) solid #FFFFFF;
+  border-radius: 1.25em;
+  width: 2.5em;
+  height: 1.5em;
+  top: 15px;
+  background: #FFFFFF;
+  margin-right: 5px;
+  margin-left: 10px;
 }
-
-.onoff-switch-container label{
-  padding-left: 70px;
-  line-height: 30px;
-  font-size: 16px;
+#switch:checked::before{
+  content: "";
+  position: absolute;
+  left: 15px;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  transform: scale(1.2);
+  background-color: rgb(255, 118, 118);
+  transition: left 250ms linear;
+}
+#switch::before{
+  content: "";
+  position: absolute;
+  left: 1px;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  transform: scale(1.2);
+  background-color: rgb(255, 118, 118);
+  transition: left 250ms linear;
 }
 
 .input {
