@@ -6,6 +6,10 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 
+router.get('/todolist', (req, res)=>{
+  res.render('todolist')
+})
+
 router.post('/add', async (req, res) => {
   const { content } = req.body
 

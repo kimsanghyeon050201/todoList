@@ -1,20 +1,110 @@
-
-body{
+body {
   background: #F7F1F1;
   margin: 0;
 }
 
-.box{
+.box {
   color: #FFFFFF;
   background: #FF6666;
   width: 400px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
+  overflow: hidden;
+  /* overflow: auto; */
+  box-shadow: -15px -15px #e0e0e0;
 }
-.title{
+
+.title {
   position: relative;
-  margin: 50px;
-  border: solid 2px blue;
-  
+  margin: 50px 50px 50px 50px;
+  line-height: 10px;
+}
+
+.list {
+  position: relative;
+}
+ul li {
+  width: 320px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  background: rgb(255, 118, 118);
+  list-style: none;
+  padding: 20px 50px 30px 50px;
+  right: 40px;
+  margin-bottom: 5px;
+}
+ul li div{
+  letter-spacing: 0.3em;
+}
+ul li input {
+  display: none;
+}
+
+input[type="checkbox"]:checked + label{
+  background: #FFFFFF;
+}
+input[type="checkbox"]:checked + label::after{
+  background: #FFFFFF;
+  content: '✔';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  font-size: 15px;
+  width: 15px;
+  height: 13px;
+  color: rgb(255, 118, 118);
+
+}
+
+ul li label {
+  width: 15px;
+  height: 15px;
+  border: solid 2px #FFFFFF;
+  display: inline-block;
+  top: 4px;
+  position: relative;
+}
+
+.onoff-switch-container{
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+#switch{
+  display: none;
+}
+
+.onoff-switch-container label{
+  padding-left: 70px;
+  line-height: 30px;
+  font-size: 16px;
+}
+
+.input {
+  position: relative;
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#txt {
+  position: relative;
+  background: #FFFFFF;
+  border: 0px;
+  padding: 15px 20px 15px 20px;
+  bottom: 10px;
+}
+
+#btn {
+  position: relative;
+  background: #FF6666;
+  color: #FFFFFF;
+  border: solid 1px #FFFFFF;
+  padding: 15px 20px 15px 20px;
+  bottom: 10px;
 }
