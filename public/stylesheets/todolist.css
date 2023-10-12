@@ -1,145 +1,144 @@
-/* 기본 스타일링 */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #F7F1F1 ;
+  background: #F7F1F1;
+  margin: 0;
+  font-weight: lighter;
 }
 
-.todo-container {
-    max-width: 400px;
-    margin: 0 auto;
-    border: 1px solid #ccc;
-    background-color: #ff6666;
-    box-shadow: -5px -5px #E0E0E0;
-}
-
-
-#mainText {
-    color:white;
-    font-weight: lighter;
-    text-align: left;
-    margin: 30px 20px 0px 30px;
-}
-
-#addText{
-    color:white;
-    font-weight: lighter;
-    text-align: left;
-    margin: 30px 20px 10px 50px;
-}
-
-#subText{
-    color:white;
-    font-weight: lighter;
-    text-align: left;
-    margin: 20px 20px 10px 30px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 5px;
-    padding: 15px 30px;
-    background-color: #ff7676;
-    color: #fff;
-}
-
-
-/* 삭제 버튼 스타일 */
-.delete-button {
-    background-color: #ff6666;
-    color: white;
-    border: none;
-    padding: 2px 5px;
-    cursor: pointer;
-}
-
-#new-task{
-    width: 190px;
-    padding: 10px;
-    border:  1px solid white;
-    margin: 0px 0px 40px 0px;
-}
-
-#add-button{
-    padding: 10px;
-    border: white solid 1px;
-    background-color: #ff6666;
-    color: white;
-    font-style: normal;
-}
-
-#switchButton{
-    text-align: right;
-}
-
-#switchText{
-    color: white;
-    font-weight: lighter;
-    margin: 0px 10px;
-}
-
-#middleLine{
-    margin: 0px 30px;
-}
-
-/* ------------------------------------------------------------------------------------------ */
-
-
-
-
-.onoff-switch-container{
-  display:inline-block;
-  width: 80px;
-  height: 0px;
-  position:relative;
-  margin-top: 0px;
-}
-.onoff-switch-container input[type="checkbox"]{
-  position: absolute;
-  width: 0px;
-  height: 0px;
+.box {
+  color: #FFFFFF;
+  background: #FF6666;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   overflow: hidden;
+  /* overflow: auto; */
+  box-shadow: -15px -15px #e0e0e0;
 }
-.onoff-switch-container label{
-  padding-left: 70px;
-  line-height: 30px;
-  font-size: 16px;
+
+.title {
+  position: relative;
+  margin: 50px 50px 50px 50px;
+  line-height: 10px;
 }
-.onoff-switch-container label::after{  
-  position:absolute;
-  top:3px;
-  left:4px;
-  content:'';
-  width: 14px;
-  height: 14px;
-  background: #ff6666;
-  border-radius: 100%;
-  transition: all 0.3s
-    
+
+.list {
+  /* display: none; */
+  /* display: block; */
 }
-.onoff-switch-container label::before{
-  position:absolute;
-  top:0;
-  left:0;
-  content:'';
-  width: 40px;
-  height: 20px;
-  border:1px solid #d1d1d1;
-  border-radius: 20px;
-  background: #f1f1f1;
-  box-sizing: border-box;
+ul li {
+  width: 320px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  background: rgb(255, 118, 118);
+  list-style: none;
+  padding: 20px 50px 30px 50px;
+  right: 40px;
+  margin-bottom: 5px;
 }
-.onoff-switch-container input[type="checkbox"]:checked + label::after {
-  transform: translateX(18px);
-  background: red;
+ul li div{
+  letter-spacing: 0.3em;
 }
-.onoff-switch-container input[type="checkbox"]:checked + label::before {
-  background: #fff;
+ul li input {
+  display: none;
+}
+
+ul li input[type="checkbox"]:checked + label{
+  background: #FFFFFF;
+}
+ul li input[type="checkbox"]:checked + label::after{
+  background: #FFFFFF;
+  content: '✔';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  font-size: 15px;
+  width: 15px;
+  height: 13px;
+  color: rgb(255, 118, 118);
+
+}
+
+ul li label {
+  width: 15px;
+  height: 15px;
+  border: solid 2px #FFFFFF;
+  display: inline-block;
+  top: 4px;
+  position: relative;
+}
+
+.switch-container{
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+#switch{
+  /* display: none; */
+  appearance: none;
+  position: relative;
+  border: max(2px, 0.1em) solid #FFFFFF;
+  border-radius: 1.25em;
+  width: 2.5em;
+  height: 1.5em;
+  top: 15px;
+  background: #FFFFFF;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+#switch:checked::before{
+  content: "";
+  position: absolute;
+  left: 15px;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  transform: scale(1.2);
+  background-color: rgb(255, 118, 118);
+  transition: left 250ms linear;
+}
+#switch::before{
+  content: "";
+  position: absolute;
+  left: 1px;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  transform: scale(1.2);
+  background-color: rgb(255, 118, 118);
+  transition: left 250ms linear;
+}
+
+.empty{
+  /* display: none; */
+  /* display: flex; */
+  justify-content: center;
+}
+
+.input {
+  position: relative;
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#txt {
+  position: relative;
+  background: #FFFFFF;
+  border: 0px;
+  padding: 15px 20px 15px 20px;
+  bottom: 10px;
+}
+
+#btn {
+  position: relative;
+  background: #FF6666;
+  color: #FFFFFF;
+  border: solid 1px #FFFFFF;
+  padding: 15px 20px 15px 20px;
+  bottom: 10px;
 }

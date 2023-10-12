@@ -3,12 +3,8 @@ var router = express.Router();
 const { sql, pool } = require('../data/db')
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index');
+  res.render('todolist');
 });
-
-router.get('/todolist', (req, res)=>{
-  res.render('todolist')
-})
 
 router.post('/add', async (req, res) => {
   const { content } = req.body

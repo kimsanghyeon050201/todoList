@@ -1,37 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheets/todolist.css">
-    <title>To-Do List</title>
-
-
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet", href="stylesheets/todolist.css">
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
-    <div class="todo-container">
-        <h1 id="mainText">To-Do List</h1>
-        <h5 id="subText">Get things done. one item at a time.</h5>
-        <hr id="middleLine">
-        <ul id="todo-list">
-            <!--뭐 알아서 추가 될거임 이야 이거 정말 큰일이다. 정말 정말 정말 큰일이야 나는 백엔드 부분을 몰라 진짜 개망했어 아이고 아이고 아이고 하아-->
-        </ul>
-        
-        <div id="switchButton">
-            <h5 style="display: inline;" id="switchText">Move done items at the end?</h5>
-            <div class="onoff-switch-container">                
-                <input type="checkbox" name="onoff-switch" id="onoff-switch1" />
-                <label for="onoff-switch1"></label>
-            </div>
-        </div>
-        <h3 id="addText">Add to the todo list</h3>
-        <div>
-            <input type="text" id="new-task">
-            <button id="add-button">ADD THEM</button>
-        </div>
+  <div class="box">
+    <div class="title">
+      <h1>Todo List</h1>
+      <p>Get things done. ine item at a time</p><hr>
     </div>
-    <script src="./todo.js"></script>
+    
+    <ul class="list" id="list">
+      <li>
+        Learn VueJs
+        <div>
+          <input type="checkbox" id="cb1">
+          <label for="cb1"></label>
+          <i class="fas fa-solid fa-pen"></i>
+          <i class="fas fa-solid fa-trash"></i>
+        </div>
+      </li>
+      <li>
+        Learn VueJs
+        <div>
+          <input type="checkbox" id="cb2">
+          <label for="cb2"></label>
+          <i class="fas fa-solid fa-pen"></i>
+          <i class="fas fa-solid fa-trash"></i>
+        </div>
+      </li>
+      <li>
+        Learn VueJs
+        <div>
+          <input type="checkbox" id="cb3">
+          <label for="cb3"></label>
+          <i class="fas fa-solid fa-pen"></i>
+          <i class="fas fa-solid fa-trash"></i>
+        </div>
+      </li>
+      <div class="switch-container">
+        <p>Move done items at the end?</p>
+        <input type="checkbox" id="switch" role="switch">
+        <label for="switch"></label>
+      </div>
+    </ul>
+    <i class="empty" id="empty">Your todo list is empty</i>
+    <div class="input">
+      <p>Add to the todo list</p>
+      <input type="text" id="txt">
+      <button id="btn">ADD ITEM</button>
+    </div>
+  </div>
+  <script src="javascripts/todolist.js"></script>
 </body>
 </html>
