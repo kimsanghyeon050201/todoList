@@ -10,15 +10,19 @@ fetch('http://localhost:3000/list', {
 }).then((data) => data.json()).then((data) => {
     const result = data.result
 
+    console.log(result)
     const len = Object.keys(result).length
     
     if (len === 0) {
+        //리스트가 없으면 empty화면을 띄움
         emptyPage.style.display = 'flex'
         listPage.style.display = 'none'
     } else {
+        //리스트가 있으면 list목록을 띄움
         emptyPage.style.display = 'none'
         listPage.style.display = 'block'
         
+        //스위치 on상태 일때 판단
         if(localStorage.getItem('onoff') === 'true'){
             on(result)
         }else{
@@ -177,7 +181,7 @@ function checkboxEvent(id, inputBox) {
         }).catch(err => {
             console.error(`err : ${err}`)
         })
-        location.reload()
+        // location.reload()
     }
 }
 
@@ -204,7 +208,7 @@ function penEvent(id, inputBox, flag) {
                 console.error(`err : ${err}`)
             })
 
-            location.reload()
+            // location.reload()
         }
         flag ^= true
     }

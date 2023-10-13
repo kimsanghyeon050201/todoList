@@ -4,8 +4,6 @@ dotenv.config()
 
 const {SERVER_PORT, HOST, HOST_URL, SQL_USER, SQL_PASSWORD, SQL_DATABASE, SQL_SERVER, SQL_PORT} = process.env
 
-const sqlEncrypt = process.env.ENCRYPT === "true"
-
 module.exports = {
     port : SERVER_PORT,
     host: HOST,
@@ -23,6 +21,12 @@ module.exports = {
                 userName : SQL_USER,
                 password : SQL_PASSWORD
             }
+        },
+        pool : {
+            max : 30,
+            min : 0,
+            // 밀리초 기준 5분동안 유지
+            idleTimeoutMillis : 300000
         }
         
     }

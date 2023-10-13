@@ -54,7 +54,7 @@ router.patch('/list/state/edit', async (req, res) => {
 
   try {
     const qu = await pool
-    
+
     await qu.request()
       .input('id', sql.Int, parseInt(id))
       .input('state', sql.Int, Number(state))
@@ -95,13 +95,13 @@ router.delete('/list/delete', async (req, res) => {
 router.get('/list', async (req, res) => {
   try {
     const qu = await pool
-
+    
     const data = await qu.request().query('select id, content, state from list')
+    console.log('get list')
 
     const result = {
       result: data.recordset
     }
-
     res.status(200).json(result)
   } catch (err) {
     console.error(`err : ${err}`)
