@@ -143,9 +143,11 @@ ul li label {
 #txt {
   position: relative;
   background: #FFFFFF;
-  border: 0px;
+  border: none;
   padding: 15px 20px 15px 20px;
   bottom: 10px;
+  caret-color: #FFFFFF;
+  outline: none;
 }
 
 #btn {
