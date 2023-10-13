@@ -26,7 +26,7 @@ module.exports = {
             max : 30,
             min : 0,
             // 밀리초 기준 5분동안 유지
-            idleTimeoutMillis : 300000
+            idleTimeoutMillis : 30000000
         }
         
     }
