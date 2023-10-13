@@ -66,28 +66,33 @@ fetch('http://localhost:3000/list', {
 function checkboxEvent(id, inputBox) {
     return function (event) {
         const target = event.target
-    
-        if(target.checked){
+
+        if (target.checked) {
             inputBox.style.textDecoration = 'line-through'
-        }else{
+        } else {
             inputBox.style.textDecoration = 'none'
         }
     }
 }
 function penEvent(id, inputBox) {
     return function (event) {
-        if(!flag){
+        if (!flag) {
             inputBox.style.border = 'solid 1px black'
             inputBox.disabled = false
-        }else{
+        } else {
             inputBox.style.border = 'none'
             inputBox.disabled = true
         }
-        flag^=true
+        flag ^= true
     }
 }
 function trashEvent(id) {
     return function (event) {
         console.log(`${id}`)
+    }
+}
+function onoffSwitch() {
+    return function (event) {
+
     }
 }

@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
   res.render('todolist');
 });
 
-router.post('/add', async (req, res) => {
+router.post('/list/add', async (req, res) => {
   const { content } = req.body
 
   try {
@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.patch('/edit', async (req, res) => {
+router.patch('/list/content/edit', async (req, res) => {
   const { content, id } = req.body
 
   try {
@@ -49,8 +49,29 @@ router.patch('/edit', async (req, res) => {
   }
 })
 
+router.patch('/list/state/edit', async (req, res) => {
+  const { id, status } = req.body
 
-router.delete('/remove', async (req, res) => {
+  try {
+    const qu = await pool
+
+    await qu.request()
+      .input('id', sql.Int, parseInt(id))
+      .input('state', sql.Int, Number(status))
+      .query('update list set statue = @sstate where id = @id')
+    res.status(200).json({
+      message: "success"
+    })
+  } catch (err) {
+    console.error(`err : ${err}`)
+    res.status(400).json({
+      message: "fail",
+      error: err
+    })
+  }
+})
+
+router.delete('/list/delete', async (req, res) => {
   const { id } = req.body
 
   try {
