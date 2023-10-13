@@ -50,15 +50,15 @@ router.patch('/list/content/edit', async (req, res) => {
 })
 
 router.patch('/list/state/edit', async (req, res) => {
-  const { id, status } = req.body
+  const { id, state } = req.body
 
   try {
     const qu = await pool
-
+    
     await qu.request()
       .input('id', sql.Int, parseInt(id))
-      .input('state', sql.Int, Number(status))
-      .query('update list set statue = @sstate where id = @id')
+      .input('state', sql.Int, Number(state))
+      .query('update list set state = @state where id = @id')
     res.status(200).json({
       message: "success"
     })
