@@ -39,13 +39,27 @@ ul li {
   right: 40px;
   margin-bottom: 5px;
 }
-ul li div{
+.icon-box{
   letter-spacing: 0.3em;
 }
-ul li input {
+.input-text{
+  position: relative;
+  background: rgb(255, 118, 118);
+  /* border: solid 1px black; */
+  border: none;
+  width: auto;
+  height: 20px;
+  top: 2px;
+  color: #FFFFFF;
+  outline: none;
+  caret-color: black;
+  text-decoration: line-through;
+  font-weight: lighter;
+  font-size: 15px;
+}
+ul li input[type="checkbox"]{
   display: none;
 }
-
 ul li input[type="checkbox"]:checked + label{
   background: #FFFFFF;
 }
@@ -114,7 +128,7 @@ ul li label {
 }
 
 .empty{
-  /* display: none; */
+  display: none;
   /* display: flex; */
   justify-content: center;
 }

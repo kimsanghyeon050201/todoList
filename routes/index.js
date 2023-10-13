@@ -22,51 +22,51 @@ router.post('/add', async (req, res) => {
     console.error(`err : ${err}`)
     res.status(400).json({
       message: "fail",
-      error : err
+      error: err
     })
   }
 })
 
 router.patch('/edit', async (req, res) => {
-  const {content, id} = req.body
+  const { content, id } = req.body
 
-  try{
+  try {
     const qu = await pool
 
     await qu.request().input('content', sql.VarChar, content)
-    .input('id', sql.Int, parseInt(id))
-    .query('update list set content = @content where id = @id')
+      .input('id', sql.Int, parseInt(id))
+      .query('update list set content = @content where id = @id')
 
     res.status(200).json({
-      message : "success"
+      message: "success"
     })
-  }catch(err){
+  } catch (err) {
     console.error(`err : ${err}`)
     res.status(400).json({
       message: "fail",
-      error : err
+      error: err
     })
   }
 })
 
 
 router.delete('/remove', async (req, res) => {
-  const {id} = req.body
+  const { id } = req.body
 
-  try{
+  try {
     const qu = await pool
 
     await qu.request().input('id', sql.Int, id)
-    .query('delete from list where id = @id')
+      .query('delete from list where id = @id')
 
     res.status(200).json({
-      message : "success"
+      message: "success"
     })
-  }catch(err){
+  } catch (err) {
     console.error(`err : ${err}`)
     res.status(400).json({
       message: "fail",
-      error : err
+      error: err
     })
   }
 })
@@ -76,17 +76,17 @@ router.get('/list', async (req, res) => {
     const qu = await pool
 
     const data = await qu.request().query('select id, content, state from list')
-    
+
     const result = {
       result: data.recordset
     }
-    
+
     res.status(200).json(result)
   } catch (err) {
     console.error(`err : ${err}`)
     res.status(400).json({
       message: "fail",
-      error : err
+      error: err
     })
   }
 })
