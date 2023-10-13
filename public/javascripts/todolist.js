@@ -3,6 +3,8 @@ const listPage = document.getElementById('list')
 const onoff = document.getElementById('switch')
 const btn = document.getElementById('btn')
 const addText = document.getElementById('txt')
+
+//db 조회해서 초기 화면 리스트를 만들기 위한 과정
 fetch('http://localhost:3000/list', {
     method: "GET",
 }).then((data) => data.json()).then((data) => {
@@ -25,6 +27,7 @@ fetch('http://localhost:3000/list', {
     }
 })
 
+//add item 버튼 이벤트
 btn.addEventListener('click', () => {
     fetch('http://localhost:3000/list/add', {
         method: "POST",
@@ -46,6 +49,7 @@ btn.addEventListener('click', () => {
     })
 })
 
+//스위치 온 오프 이벤트
 onoff.addEventListener('change', (event) => {
     const target = event.target
 
@@ -62,10 +66,13 @@ onoff.addEventListener('change', (event) => {
     })
 })
 
+
+//동적으로 리스트를 추가하는 함수
 function createList(arr, len) {
 
 
     for (let i = 0; i < len; i++) {
+        //스위치 위에서 부터 리스트를 만들기 위해
         const num = listPage.children[listPage.children.length - 1]
         const li = document.createElement('li')
         const div = document.createElement('div')
@@ -93,12 +100,14 @@ function createList(arr, len) {
 
         cbLabel.setAttribute('for', `cb${i}`)
 
+        //icon 만들기
         pen.setAttribute('class', 'fas fa-solid fa-pen')
         trash.setAttribute('class', 'fas fa-solid fa-trash')
 
         pen.style.marginLeft = '10px'
         trash.style.marginLeft = '10px'
 
+        //Wrapper로 감싸주지 않으면 클릭 이벤트가 발생을 하지 않음
         penWrapper.addEventListener('click', penEvent(id, textInput, flag))
         trashWrapper.addEventListener('click', trashEvent(id))
 
@@ -118,6 +127,7 @@ function createList(arr, len) {
 
 }
 
+//li태그를 지우는 함수
 function removeAllList() {
     const liElements = listPage.getElementsByTagName('li')
 
@@ -126,12 +136,14 @@ function removeAllList() {
     }
 }
 
+//스위치 온 이벤트
 function off(arr, len) {
     onoff.checked = false
     removeAllList()
     createList(arr,len)
 }
 
+//스위치 오프 이벤트
 function on(arr) {
     onoff.checked = true
     removeAllList()
@@ -143,6 +155,7 @@ function on(arr) {
     createList(concatArr, concatArr.length)
 }
 
+//체크박스 이벤트
 function checkboxEvent(id, inputBox) {
     return function (event) {
         const target = event.target
@@ -167,6 +180,8 @@ function checkboxEvent(id, inputBox) {
         location.reload()
     }
 }
+
+//수정 이벤트
 function penEvent(id, inputBox, flag) {
     return function (event) {
         if (!flag) {
@@ -194,6 +209,8 @@ function penEvent(id, inputBox, flag) {
         flag ^= true
     }
 }
+
+//지우는 이벤트
 function trashEvent(id) {
     return function (event) {
         fetch("http://localhost:3000/list/delete", {
