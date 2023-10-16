@@ -12,7 +12,7 @@ fetch('http://localhost:3000/list', {
 
     console.log(result)
     const len = Object.keys(result).length
-    
+
     if (len === 0) {
         //리스트가 없으면 empty화면을 띄움
         emptyPage.style.display = 'flex'
@@ -21,13 +21,14 @@ fetch('http://localhost:3000/list', {
         //리스트가 있으면 list목록을 띄움
         emptyPage.style.display = 'none'
         listPage.style.display = 'block'
-        
+
         //스위치 on상태 일때 판단
-        if(localStorage.getItem('onoff') === 'true'){
+        if (localStorage.getItem('onoff') === 'true') {
             on(result)
-        }else{
+        } else {
             off(result, Object.keys(result).length)
         }
+
     }
 })
 
@@ -44,7 +45,7 @@ btn.addEventListener('click', () => {
     }).then((res) => {
         return res.json()
     }).then((data) => {
-        
+
         if (data.message === 'success') {
             location.reload()
         }
@@ -76,7 +77,7 @@ function createList(arr, len) {
 
 
     for (let i = 0; i < len; i++) {
-        //스위치 위에서 부터 리스트를 만들기 위해
+        //스위치 위에서 부터 리스트를 만들기 위한 Object들
         const num = listPage.children[listPage.children.length - 1]
         const li = document.createElement('li')
         const div = document.createElement('div')
@@ -95,6 +96,7 @@ function createList(arr, len) {
         textInput.classList.add('input-text')
         if (state) {
             textInput.style.textDecoration = 'line-through'
+            textInput.style.opacity = '0.4'
         }
 
         checkbox.type = 'checkbox'
@@ -110,6 +112,9 @@ function createList(arr, len) {
 
         pen.style.marginLeft = '10px'
         trash.style.marginLeft = '10px'
+
+        penWrapper.style.cursor = 'pointer'
+        trashWrapper.style.cursor = 'pointer'
 
         //Wrapper로 감싸주지 않으면 클릭 이벤트가 발생을 하지 않음
         penWrapper.addEventListener('click', penEvent(id, textInput, flag))
@@ -127,6 +132,8 @@ function createList(arr, len) {
         li.appendChild(div)
 
         listPage.insertBefore(li, num)
+
+
     }
 
 }
@@ -144,7 +151,7 @@ function removeAllList() {
 function off(arr, len) {
     onoff.checked = false
     removeAllList()
-    createList(arr,len)
+    createList(arr, len)
 }
 
 //스위치 오프 이벤트
@@ -166,7 +173,9 @@ function checkboxEvent(id, inputBox) {
 
         if (target.checked) {
             inputBox.style.textDecoration = 'line-through'
+            inputBox.style.opacity = '0.4'
         } else {
+            inputBox.style.opacity = '1'
             inputBox.style.textDecoration = 'none'
         }
         fetch('http://localhost:3000/list/state/edit', {
@@ -181,6 +190,7 @@ function checkboxEvent(id, inputBox) {
         }).catch(err => {
             console.error(`err : ${err}`)
         })
+
         // location.reload()
     }
 }
@@ -189,7 +199,7 @@ function checkboxEvent(id, inputBox) {
 function penEvent(id, inputBox, flag) {
     return function (event) {
         if (!flag) {
-            inputBox.style.border = 'solid 1px black'
+            inputBox.style.border = 'solid 0.5px black'
             inputBox.disabled = false
         } else {
             inputBox.style.border = 'none'

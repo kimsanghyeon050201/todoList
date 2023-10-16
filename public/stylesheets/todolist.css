@@ -83,6 +83,7 @@ ul li label {
   display: inline-block;
   top: 4px;
   position: relative;
+  cursor: pointer;
 }
 
 .switch-container{
@@ -103,6 +104,7 @@ ul li label {
   background: #FFFFFF;
   margin-right: 5px;
   margin-left: 10px;
+  cursor: pointer;
 }
 #switch:checked::before{
   content: "";
@@ -114,6 +116,7 @@ ul li label {
   transform: scale(1.2);
   background-color: rgb(255, 118, 118);
   transition: left 250ms linear;
+  cursor: pointer;
 }
 #switch::before{
   content: "";
@@ -125,6 +128,7 @@ ul li label {
   transform: scale(1.2);
   background-color: rgb(255, 118, 118);
   transition: left 250ms linear;
+  cursor: pointer;
 }
 
 .empty{
@@ -148,6 +152,7 @@ ul li label {
   bottom: 10px;
   caret-color: #FFFFFF;
   outline: none;
+  font-size: 15px;
 }
 
 #btn {
@@ -157,4 +162,5 @@ ul li label {
   border: solid 1px #FFFFFF;
   padding: 15px 20px 15px 20px;
   bottom: 10px;
+  cursor: pointer;
 }
