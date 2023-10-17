@@ -8,27 +8,7 @@ const addText = document.getElementById('txt')
 fetch('http://localhost:3000/list', {
     method: "GET",
 }).then((data) => data.json()).then((data) => {
-    const result = data.result
-
-    const len = Object.keys(result).length
-
-    if (len === 0) {
-        //리스트가 없으면 empty화면을 띄움
-        emptyPage.style.display = 'flex'
-        listPage.style.display = 'none'
-    } else {
-        //리스트가 있으면 list목록을 띄움
-        emptyPage.style.display = 'none'
-        listPage.style.display = 'block'
-
-        //스위치 on상태 일때 판단
-        if (localStorage.getItem('onoff') === 'true') {
-            on(result)
-        } else {
-            off(result, Object.keys(result).length)
-        }
-
-    }
+    reload()
 })
 
 //add item 버튼 이벤트
@@ -43,11 +23,9 @@ btn.addEventListener('click', () => {
         })
     }).then((res) => {
         return res.json()
-    }).then((data) => {
-
-        if (data.message === 'success') {
-            location.reload()
-        }
+    }).then(() => {
+        //페이지 새로고침을 하지 않고 바로 화면에 반영하기
+        reload()
     }).catch((err) => {
         console.error(`err : ${err}`)
     })
@@ -71,6 +49,84 @@ onoff.addEventListener('change', (event) => {
     })
 })
 
+//체크박스 이벤트
+function checkboxEvent(id, inputBox) {
+    return function (event) {
+        const target = event.target
+
+        if (target.checked) {
+            inputBox.style.textDecoration = 'line-through'
+            inputBox.style.opacity = '0.4'
+        } else {
+            inputBox.style.opacity = '1'
+            inputBox.style.textDecoration = 'none'
+        }
+        fetch('http://localhost:3000/list/state/edit', {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "id": id,
+                "state": target.checked
+            })
+        }).then(() => {
+            //스위치 온 오프 상태일때 체크박스 체크를 하면 바로 화면에 반영하기 위함
+            reload()
+        }).catch(err => {
+            console.error(`err : ${err}`)
+        })
+
+    }
+}
+
+//수정 이벤트
+function penEvent(id, inputBox, flag) {
+    return function (event) {
+        if (!flag) {
+            inputBox.style.border = 'solid 0.5px black'
+            inputBox.disabled = false
+        } else {
+            inputBox.style.border = 'none'
+            inputBox.disabled = true
+
+            fetch("http://localhost:3000/list/content/edit", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "id": id,
+                    "content": inputBox.value
+                })
+            }).catch((err) => {
+                console.error(`err : ${err}`)
+            })
+        }
+        flag ^= true
+    }
+}
+
+//지우는 이벤트
+function trashEvent(id) {
+    return function (event) {
+        fetch("http://localhost:3000/list/delete", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "id": id
+            })
+        }).then((res) => {
+            return res.json()
+        }).then((data) => {
+            reload()
+        }).catch((err) => {
+            console.error(`err : ${err}`)
+        })
+    }
+}
 
 //동적으로 리스트를 추가하는 함수
 function createList(arr, len) {
@@ -165,97 +221,31 @@ function on(arr) {
     createList(concatArr, concatArr.length)
 }
 
-//체크박스 이벤트
-function checkboxEvent(id, inputBox) {
-    return function (event) {
-        const target = event.target
+//페이지 새로고침을 하지 않고 화면을 리로드 하기 위함
+function reload() {
+    fetch('http://localhost:3000/list', {
+        method: "GET"
+    }).then((data) => data.json()).then((res) => {
+        const result = res.result
+        console.log(result)
+        const len = Object.keys(result).length
 
-        if (target.checked) {
-            inputBox.style.textDecoration = 'line-through'
-            inputBox.style.opacity = '0.4'
+        if (len === 0) {
+            //리스트가 없으면 empty화면을 띄움
+            emptyPage.style.display = 'flex'
+            listPage.style.display = 'none'
         } else {
-            inputBox.style.opacity = '1'
-            inputBox.style.textDecoration = 'none'
-        }
-        fetch('http://localhost:3000/list/state/edit', {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "id": id,
-                "state": target.checked
-            })
-        }).then(()=>{
-            fetch('http://localhost:3000/list', {
-                method : "GET"
-            }).then((data)=>data.json()).then((res)=>{
-                const result = res.result
-                console.log(result)
-                if (localStorage.getItem('onoff') === 'true') {
-                    on(result)
-                } else {
-                    off(result, Object.keys(result).length)
-                }
-            })
-        })
-        .catch(err => {
-            console.error(`err : ${err}`)
-        })
+            //리스트가 있으면 list목록을 띄움
+            emptyPage.style.display = 'none'
+            listPage.style.display = 'block'
 
-
-        // location.reload()
-    }
-}
-
-//수정 이벤트
-function penEvent(id, inputBox, flag) {
-    return function (event) {
-        if (!flag) {
-            inputBox.style.border = 'solid 0.5px black'
-            inputBox.disabled = false
-        } else {
-            inputBox.style.border = 'none'
-            inputBox.disabled = true
-
-            fetch("http://localhost:3000/list/content/edit", {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "id": id,
-                    "content": inputBox.value
-                })
-            }).catch((err) => {
-                console.error(`err : ${err}`)
-            })
-
-            // location.reload()
-        }
-        flag ^= true
-    }
-}
-
-//지우는 이벤트
-function trashEvent(id) {
-    return function (event) {
-        fetch("http://localhost:3000/list/delete", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "id": id
-            })
-        }).then((res) => {
-            return res.json()
-        }).then((data) => {
-            if (data.message === 'success') {
-                location.reload()
+            //스위치 on상태 일때 판단
+            if (localStorage.getItem('onoff') === 'true') {
+                on(result)
+            } else {
+                off(result, Object.keys(result).length)
             }
-        }).catch((err) => {
-            console.error(`err : ${err}`)
-        })
-    }
+
+        }
+    })
 }
