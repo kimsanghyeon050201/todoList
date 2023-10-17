@@ -248,4 +248,5 @@ function reload() {
 
         }
     })
+    addText.value = ''
 }
