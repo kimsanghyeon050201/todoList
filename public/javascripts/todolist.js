@@ -247,8 +247,8 @@ function reload() {
             } else {
                 off(result, Object.keys(result).length)
             }
-
         }
     })
+    //페이지 로드시 텍스트 박스 지우기
     addText.value = ''
 }
