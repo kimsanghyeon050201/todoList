@@ -10,7 +10,6 @@ fetch('http://localhost:3000/list', {
 }).then((data) => data.json()).then((data) => {
     const result = data.result
 
-    console.log(result)
     const len = Object.keys(result).length
 
     if (len === 0) {
@@ -62,6 +61,7 @@ onoff.addEventListener('change', (event) => {
         method: "GET",
     }).then((data) => data.json()).then((data) => {
         const result = data.result
+        console.log(result)
         if (!target.checked) {
             off(result, Object.keys(result).length)
         } else {
@@ -133,7 +133,6 @@ function createList(arr, len) {
 
         listPage.insertBefore(li, num)
 
-
     }
 
 }
@@ -187,9 +186,23 @@ function checkboxEvent(id, inputBox) {
                 "id": id,
                 "state": target.checked
             })
-        }).catch(err => {
+        }).then(()=>{
+            fetch('http://localhost:3000/list', {
+                method : "GET"
+            }).then((data)=>data.json()).then((res)=>{
+                const result = res.result
+                console.log(result)
+                if (localStorage.getItem('onoff') === 'true') {
+                    on(result)
+                } else {
+                    off(result, Object.keys(result).length)
+                }
+            })
+        })
+        .catch(err => {
             console.error(`err : ${err}`)
         })
+
 
         // location.reload()
     }
@@ -238,7 +251,6 @@ function trashEvent(id) {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data)
             if (data.message === 'success') {
                 location.reload()
             }
