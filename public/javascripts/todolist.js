@@ -107,7 +107,7 @@ function penEvent(id, inputBox, flag) {
     }
 }
 
-//지우는 이벤트
+//삭제 이벤트
 function trashEvent(id) {
     return function (event) {
         fetch("http://localhost:3000/list/delete", {
@@ -193,7 +193,7 @@ function createList(arr, len) {
 
 }
 
-//li태그를 지우는 함수
+//li(list들)태그를 지우는 함수
 function removeAllList() {
     const liElements = listPage.getElementsByTagName('li')
 
@@ -214,6 +214,7 @@ function on(arr) {
     onoff.checked = true
     removeAllList()
 
+    //체크 되어 있는 목로과 안된 목록을 따로 배열로 만든 다음 합침
     const stateTure = arr.filter(data => data.state == 1)
     const stateFalse = arr.filter(data => data.state == 0)
     const concatArr = stateFalse.concat(stateTure)
@@ -222,6 +223,7 @@ function on(arr) {
 }
 
 //페이지 새로고침을 하지 않고 화면을 리로드 하기 위함
+//페이지 새로고침을 하면 데이터가 없어 졌다가 추가되는 것이 눈에 보여서 보기 안좋음
 function reload() {
     fetch('http://localhost:3000/list', {
         method: "GET"
