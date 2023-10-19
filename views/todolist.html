@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet", href="stylesheets/todolist.css">
+  <link rel="stylesheet" , href="stylesheets/todolist.css">
   <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="box">
     <div class="title">
       <h1 style="font-weight: lighter;">Todo List</h1>
-      <p style="font-weight: lighter;opacity: 0.8;">Get things done. one item at a time</p><hr style="border: 0; height: 1px ; background: #FFF; opacity: 0.4;">
+      <p style="font-weight: lighter;opacity: 0.8;">Get things done. one item at a time</p>
+      <hr style="border: 0; height: 1px ; background: #FFF; opacity: 0.4;">
     </div>
-    
+
     <ul class="list" id="list">
       <!-- <li>
         <input type="text" value="zxczxczxc" disabled class="input-text">
@@ -23,7 +28,7 @@
           <i class="fas fa-solid fa-trash"></i>
         </div>
       </li> -->
-      
+
       <div class="switch-container">
         <p>Move done items at the end?</p>
         <input type="checkbox" id="switch" role="switch">
@@ -37,6 +42,51 @@
       <button id="btn">ADD ITEM</button>
     </div>
   </div>
-  <script src="javascripts/todolist.js"></script>
+  <!-- <script src="javascripts/todolist.js"></script> -->
+  <script>
+    $(document).ready(() => {
+      
+      reload()
+
+      function reload(){
+        $.get('http://localhost:3000/list', (data)=>{
+          const result = data.result
+          const len = result.length
+
+          if(len == 0){
+            $('#empty').css('display', 'flex')
+            $('#list').css('display', 'none')
+          }else{
+            $('#empty').css('display', 'none')
+            $('#list').css('display', 'flex')
+
+            if(localStorage.getItem('onoff') == 'true'){
+              on(result)
+            }else{
+              off(result, len)
+            }
+          }
+          $('#txt').val('')
+        })
+      }
+
+      function on(){
+        $(`input:checkbox[id='switch']`).prop('checked', true)
+
+        removeAllList()
+      }
+
+      function off(){
+
+      }
+
+      function removeAllList(){
+        const liElements = $('#list').find('li').each(()=>{
+          $(this).remove()
+        })
+      }
+    })
+  </script>
 </body>
+
 </html>

@@ -202,14 +202,14 @@ function removeAllList() {
     }
 }
 
-//스위치 온 이벤트
+//스위치 오프 이벤트
 function off(arr, len) {
     onoff.checked = false
     removeAllList()
     createList(arr, len)
 }
 
-//스위치 오프 이벤트
+//스위치 온 이벤트
 function on(arr) {
     onoff.checked = true
     removeAllList()
