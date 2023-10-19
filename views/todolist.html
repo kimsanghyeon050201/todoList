@@ -45,45 +45,66 @@
   <!-- <script src="javascripts/todolist.js"></script> -->
   <script>
     $(document).ready(() => {
-      
+
       reload()
 
-      function reload(){
-        $.get('http://localhost:3000/list', (data)=>{
+      function reload() {
+        $.get('http://localhost:3000/list', (data) => {
           const result = data.result
           const len = result.length
-
-          if(len == 0){
+          if (len == 0) {
             $('#empty').css('display', 'flex')
             $('#list').css('display', 'none')
-          }else{
+          } else {
             $('#empty').css('display', 'none')
             $('#list').css('display', 'flex')
 
-            if(localStorage.getItem('onoff') == 'true'){
+            if (localStorage.getItem('onoff') == 'true') {
               on(result)
-            }else{
+            } else {
               off(result, len)
             }
           }
-          $('#txt').val('')
+          // $('#txt').val('')
         })
       }
 
-      function on(){
+      function on() {
         $(`input:checkbox[id='switch']`).prop('checked', true)
-
+        console.log('on')
         removeAllList()
+        
+      }
+      
+      function off(arr, len) {
+        $(`input:checkbox[id='switch']`).prop('checked', false)
+        console.log('off')
+        removeAllList()
+
       }
 
-      function off(){
-
-      }
-
-      function removeAllList(){
-        const liElements = $('#list').find('li').each(()=>{
+      function removeAllList() {
+        const liElements = $('#list').find('li').each(() => {
           $(this).remove()
         })
+      }
+      function createList(arr, len) {
+
+        for(let i = 0; i < len; i++){
+          const li = $("<li>")
+          const div = $("<div>")
+          const textInput = $("<input type='text'>")
+          const checkbox = $(`<input type="checkbox" id=cb${i}>`)
+          const cbLabel = $(`<label>`)
+          const penWrapper = $(`<span>`)
+          const pen = $('<i>')
+          const trashWrapper = $('<span>')
+          const trash = $('<i>')
+          let flag = false
+          const {id, content, state} = arr[i]
+        }
+
+        
       }
     })
   </script>
