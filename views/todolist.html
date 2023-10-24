@@ -48,6 +48,8 @@
 
       reload()
 
+      $(`#switch`).on
+
       function reload() {
         $.get('http://localhost:3000/list', (data) => {
           const result = data.result
@@ -65,7 +67,7 @@
               off(result, len)
             }
           }
-          // $('#txt').val('')
+          $('#txt').val('')
         })
       }
 
@@ -102,6 +104,11 @@
           const trash = $('<i>')
           let flag = false
           const {id, content, state} = arr[i]
+
+          textInput.val(content)
+          textInput.attr('disabled', true)
+          textInput.css('input-text')
+          
         }
 
         
